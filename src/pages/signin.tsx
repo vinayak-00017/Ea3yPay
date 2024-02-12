@@ -3,14 +3,14 @@ import axios from "axios"
 import { useState } from "react"
 
 
-export default  function Signup() {
+export default  function Signin() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleClick = async() =>{
     try {
-        const response = await axios.post(`${BASE_URL}/api/user/signup`,{
+        const response = await axios.post(`${BASE_URL}/api/user/signin`,{
           email,
           password
         })
@@ -54,7 +54,7 @@ export default  function Signup() {
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
               onClick={handleClick}
             >
-              Sign Up
+              Sign In
             </button>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
               onClick={handleLogout}
