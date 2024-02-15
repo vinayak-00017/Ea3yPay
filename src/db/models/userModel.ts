@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 
 const userSchema = new Schema({
@@ -8,6 +8,5 @@ const userSchema = new Schema({
     lastName : String
 })
 
-const User = model('User',userSchema)
 
-export default User;
+export default mongoose.models.User || mongoose.model('User', userSchema)

@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from 'bcrypt';
-import { connectToDatabase } from "../../../../db";
-import User from "../../../../db/models/userModel";
-// import { cookies } from "next/headers";
+import { connectToDatabase } from "../../../db";
+import User from "../../../db/models/userModel";
 import { SignJWT, jwtVerify } from "jose";
 import cookie from 'cookie'
+import { signupInput } from "@/common/zod";
 
 const key = new TextEncoder().encode(process.env.USER_SECRET)
 
@@ -27,7 +27,14 @@ export async function decrypt(input:string):Promise<any> {
 
 
 export default async function Signup(req: NextApiRequest, res:NextApiResponse){
-    const {email, password} = req.body;
+    let parsedInput = signupInput.safeParse(req.body)
+    if(!parsedInput.success){
+        return res.status(411).json({
+            message : parsedInput.error
+        })
+    }
+    const email = parsedInput.data.email;
+    const password = parsedInput.data.password;
     await connectToDatabase();
     const user = await User.findOne({email})
     if(user){
