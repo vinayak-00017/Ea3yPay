@@ -4,12 +4,18 @@ import { connectToDatabase } from "../../../db";
 import User from "../../../db/models/userModel";
 import cookie from 'cookie'
 import { encrypt } from "./signup";
+import { signinInput } from "@/common/zod";
 
 
 
 export default async function Signin(req: NextApiRequest, res:NextApiResponse){
+    const parsedInput = signinInput.safeParse(req.body)
+    if(!parsedInput.success){
+        return res.status(411).json({message: parsedInput.error})
+    }   
     try{
-        const {email, password} = req.body;
+        const email = parsedInput.data.email
+        const password = parsedInput.data.password
         await connectToDatabase();
         const user = await User.findOne({email})
         if(user){

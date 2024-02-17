@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
+ /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-}
+} 
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -30,4 +30,12 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-} */
+}  */
+
+ body {
+  color: white;
+  background-color: black;
+  background-image: 
+    radial-gradient(circle at center, rgba(255,255,255,0.005) 0, rgba(255,255,255,0.005) 1px, transparent 1px)
+} 
+

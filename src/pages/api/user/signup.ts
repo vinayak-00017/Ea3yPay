@@ -5,6 +5,7 @@ import User from "../../../db/models/userModel";
 import { SignJWT, jwtVerify } from "jose";
 import cookie from 'cookie'
 import { signupInput } from "@/common/zod";
+import Account from "@/db/models/bankModel";
 
 const key = new TextEncoder().encode(process.env.USER_SECRET)
 
@@ -13,17 +14,9 @@ export const encrypt = async(payload:any) =>{
     return await new SignJWT(payload)
     .setProtectedHeader({alg: 'HS256'})
     .setIssuedAt()
-    .setExpirationTime('1 hr from now')
+    .setExpirationTime('2h')
     .sign(key)
 }
-
-export async function decrypt(input:string):Promise<any> {
-   const {payload} = await jwtVerify(input,key,{
-    algorithms:['HS256']
-   })
-   return payload
-}
-
 
 
 export default async function Signup(req: NextApiRequest, res:NextApiResponse){
@@ -34,15 +27,19 @@ export default async function Signup(req: NextApiRequest, res:NextApiResponse){
         })
     }
     const email = parsedInput.data.email;
-    const password = parsedInput.data.password;
     await connectToDatabase();
     const user = await User.findOne({email})
     if(user){
         return res.status(403).json({message: 'User already exists'})
     }else{
-        const hashedPassword = await bcrypt.hash(password,10)
-        const newUser = new User({email, password:hashedPassword})
+        const hashedPassword = await bcrypt.hash(parsedInput.data.password,10)
+        parsedInput.data.password = hashedPassword
+        const newUser = new User(parsedInput.data)
         newUser.save()
+        await Account.create({
+            userId: newUser._id,
+            balance: Math.floor(Math.random() * 1000000) + 1
+        })
         const expires = new Date(Date.now() + 60*60*1000)
         const session = await encrypt({userId : newUser._id,expires})
         // const cookie = cookies().set('session',session,{expires,httpOnly:true})
