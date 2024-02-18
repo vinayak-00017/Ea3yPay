@@ -12,12 +12,16 @@ export default  function Signup() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName , setLastName] = useState('')
 
   const handleClick = async() =>{
     try {
         const response = await axios.post(`${BASE_URL}/api/user/signup`,{
           email,
-          password
+          password,
+          firstName,
+          lastName
         })
         console.log(response.data)
     }catch(err){
@@ -79,12 +83,12 @@ export default  function Signup() {
         <div className="bg-neutral-800 rounded-lg w-1/4 m-8 p-10 flex flex-col  justify-center">
           <Heading label={"Sign Up"}></Heading>
           <SubHeading label={"Enter your information to create an account"}></SubHeading>
-          <InputBox label={"First Name"} placeholder={"jon"}></InputBox>
-          <InputBox label={"Last Name"} placeholder={"jones"}></InputBox>
-          <InputBox label={"Email"} placeholder={"ufc@195.com"}></InputBox>
-          <InputBox label={"Password"} placeholder={"*****"}></InputBox>
-          <Button label={"Sign Up"}></Button>
-          <BottomPrompt label={"Already have an account?"} buttonText="Sign In"></BottomPrompt>
+          <InputBox value={firstName} setValue={setFirstName} label={"First Name"} placeholder={"jon"}></InputBox>
+          <InputBox  value={lastName} setValue={setLastName} label={"Last Name"} placeholder={"jones"}></InputBox>
+          <InputBox value={email} setValue={setEmail} label={"Email"} placeholder={"ufc@195.com"}></InputBox>
+          <InputBox value={password} setValue={setPassword} label={"Password"} placeholder={"*****"}></InputBox>
+          <Button handleClick={handleClick} label={"Sign Up"}></Button>
+          <BottomPrompt label={"Already have an account?"} buttonText="Sign In" to="/signin" ></BottomPrompt>
         </div>
       </div>
 

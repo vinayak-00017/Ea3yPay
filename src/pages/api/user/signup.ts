@@ -50,7 +50,7 @@ export default async function Signup(req: NextApiRequest, res:NextApiResponse){
             maxAge : 60 * 60,
             path : '/'
         }))
-        res.json(session)
+        res.json({message : 'user created' })
     }
 
 }

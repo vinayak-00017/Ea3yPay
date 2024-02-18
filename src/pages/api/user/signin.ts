@@ -30,7 +30,7 @@ export default async function Signin(req: NextApiRequest, res:NextApiResponse){
                         maxAge : 60 * 60,
                         path : '/'
                     }))
-                    res.json(session)
+                    res.status(200).json({message: "User logged in"})
                 }
                 return res.status(403).json({message : 'Invalid credentials'})
             })

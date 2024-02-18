@@ -1,12 +1,12 @@
 import Link from "next/link"
 
-export default function BottomPrompt({label,buttonText} : {
-    label: string, buttonText : string
+export default function BottomPrompt({label,buttonText,to} : {
+    label: string, buttonText : string, to: string
 }){
     return <div className="flex justify-center">
         {label}
-        <button className="ml-2">
+        <Link href={to} className="ml-2">
             {buttonText}
-        </button>
+        </Link>
     </div>
 }
