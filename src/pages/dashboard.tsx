@@ -1,9 +1,11 @@
+import IsUser from "@/components/IsUser";
 import Users from "@/components/Users";
 import { BASE_URL } from "@/config";
 import axios from "axios";
+import React from "react";
 import { useQuery } from "react-query";
 
-export default function Dashboard(){
+function Dashboard(){
 
     const {data:balance , isLoading} = useQuery(['balance'],
     async() => {
@@ -32,3 +34,6 @@ export default function Dashboard(){
         </div>
     )
 }
+
+
+export default IsUser(Dashboard)

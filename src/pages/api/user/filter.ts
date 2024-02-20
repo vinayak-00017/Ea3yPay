@@ -10,9 +10,14 @@ async function Filter(req : NextApiRequest, res: NextApiResponse) {
         return res.status(411).json(parsedInput.error)
     }
     const users = await User.find({
-        $or: [
-            {firstName : {$regex:filter , $options: 'i'}},
-            {lastName : {$regex:filter , $options: 'i'}}
+        $and : [
+            {
+                $or: [
+                    {firstName : {$regex:filter , $options: 'i'}},
+                    {lastName : {$regex:filter , $options: 'i'}}
+                ]
+            },
+            {_id : {$ne : req.headers["userId"]}}
         ]
     }).select('firstName lastName _id')
     if(!users){

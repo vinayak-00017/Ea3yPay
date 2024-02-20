@@ -30,3 +30,4 @@ export const transferInput = z.object({
     to : string(),
     amount: number()
 })
+

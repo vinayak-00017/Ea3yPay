@@ -16,7 +16,7 @@ export default function Users(){
         const response = await axios.get(`${BASE_URL}/api/user/filter?filter=${search}`)
         return response.data
         },
-    { enabled: false } // This disables the query from automatically running
+    // { enabled: false } // This disables the query from automatically running
     )
 
     const handleSearch = () =>{

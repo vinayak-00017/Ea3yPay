@@ -6,9 +6,12 @@ import Button from "@/components/signup/Button"
 import Heading from "@/components/signup/Heading"
 import InputBox from "@/components/signup/InputBox"
 import SubHeading from "@/components/signup/SubHeading"
+import { useRouter } from "next/router"
 
 
 export default  function Signin() {
+
+  const router = useRouter()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,7 +22,7 @@ export default  function Signin() {
           email,
           password
         })
-        console.log(response.data)
+        router.push('/dashboard')
     }catch(err){
       console.error(err)
     }
@@ -39,8 +42,8 @@ export default  function Signin() {
         <div className="bg-neutral-800 rounded-lg w-1/4 m-8 p-10 flex flex-col  justify-center">
           <Heading label={"Sign In"}></Heading>
           <SubHeading label={"Enter your information to create an account"}></SubHeading>
-          <InputBox label={"Email"} value={email} setValue={setEmail} placeholder={"ufc@195.com"}></InputBox>
-          <InputBox label={"Password"} value={password} setValue={setPassword} placeholder={"*****"}></InputBox>
+          <InputBox type="email" label={"Email"} value={email} setValue={setEmail} placeholder={"ufc@195.com"}></InputBox>
+          <InputBox type="password" label={"Password"} value={password} setValue={setPassword} placeholder={"*****"}></InputBox>
           <Button label={"Sign In"} handleClick={handleClick}></Button>
           <BottomPrompt label={"New user?"} buttonText="Sign Up" to="/signup"></BottomPrompt>
         </div>
