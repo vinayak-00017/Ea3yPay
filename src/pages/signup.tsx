@@ -20,7 +20,7 @@ export default  function Signup() {
 
   const handleClick = async() =>{
     try {
-        const response = await axios.post(`${BASE_URL}/api/user/signup`,{
+        await axios.post(`${BASE_URL}/api/user/signup`,{
           email,
           password,
           firstName,
