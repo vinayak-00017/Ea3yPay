@@ -10,7 +10,7 @@ function Appbar(){
 
     const handleSignout = async() => {
         try{
-          await axios.post(`${BASE_URL}/api/user/logout`)
+        //   await axios.post(`${BASE_URL}/api/user/logout`)
           router.push('/signin')
         }catch(err){
           console.error(err)
@@ -32,4 +32,4 @@ function Appbar(){
     )
 }
 
-export default IsUser(Appbar)
+export default Appbar
