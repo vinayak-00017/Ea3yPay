@@ -5,6 +5,7 @@ import React, { useEffect } from "react"
 import { useQuery } from "react-query"
 
 
+
 export default function IsUser(WrappedComponent : React.ComponentType<any>){
     return function (props:any) {
         const router = useRouter()
@@ -21,8 +22,9 @@ export default function IsUser(WrappedComponent : React.ComponentType<any>){
             }
         },[isLoading,user])
 
+
         if(isLoading || !user){
-            return <div>Loading...</div>
+            return null
         }
 
         return <WrappedComponent {...props}/>

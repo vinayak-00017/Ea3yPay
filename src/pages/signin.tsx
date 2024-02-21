@@ -28,18 +28,10 @@ export default  function Signin() {
     }
   }
 
-  const handleLogout = async() => {
-    try{
-      const response = await axios.post(`${BASE_URL}/api/user/logout`)
-      console.log(response.data)
-    }catch(err){
-      console.error(err)
-    }
-  }
 
     return(
       <div className="flex justify-center">
-        <div className="bg-neutral-800 rounded-lg w-1/4 m-8 p-10 flex flex-col  justify-center">
+        <div className="bg-neutral-800 rounded-lg m-8 p-10 flex flex-col  justify-center">
           <Heading label={"Sign In"}></Heading>
           <SubHeading label={"Enter your information to create an account"}></SubHeading>
           <InputBox type="email" label={"Email"} value={email} setValue={setEmail} placeholder={"ufc@195.com"}></InputBox>

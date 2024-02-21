@@ -19,7 +19,7 @@ async function Filter(req : NextApiRequest, res: NextApiResponse) {
             },
             {_id : {$ne : req.headers["userId"]}}
         ]
-    }).select('firstName lastName _id')
+    }).select('firstName lastName _id email')
     if(!users){
         return res.status(404).json({message : 'user not found'})
     }
